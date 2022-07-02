@@ -29,8 +29,8 @@ namespace WF_Shooting
         }
         private static Image ResizeImage(Image original)
         {
-            int width = original.Width / 4;
-            int height = original.Height / 4;
+            int width = original.Width / 5;
+            int height = original.Height / 5;
             Size resize = new Size(width, height);
 
             Bitmap resizedImg = new Bitmap(original, resize);
