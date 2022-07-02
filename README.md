@@ -1,5 +1,8 @@
 # Shooting_Galaxy_WindowForm
  
+![04_WF_ShootingGame](https://user-images.githubusercontent.com/65384983/177000912-7b52d2fc-2b5a-446f-bd07-36b33470ae5f.gif)
+
+
 ### 의의
  
 그동안 3편까지는 콘솔로 했었다면, 이번에는 Window Form형태로 도전해 볼 것이다.
