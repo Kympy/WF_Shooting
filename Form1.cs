@@ -3,8 +3,9 @@ namespace WF_Shooting
     public partial class Form1 : Form
     {
         Color backgroundColor = Color.FromArgb(38, 38, 67);
-        Color buttonTextColor = Color.FromArgb(38, 38, 67);
-        Color buttonBackColor = Color.FromArgb(255, 255, 134);
+        Color textColor = Color.FromArgb(38, 38, 67);
+        Color backColor = Color.FromArgb(255, 255, 134);
+        int time = 0;
         public Form1()
         {
             InitializeComponent();
@@ -32,21 +33,15 @@ namespace WF_Shooting
             BackColor = backgroundColor;
             pictureBox1.Image = Image.FromFile("background.png");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.Location = new Point(0, -300);
+            pictureBox1.Location = new Point(0, 0);
             pictureBox1.Width = Width;
-            pictureBox1.Height = Height / 2;
+            pictureBox1.Height = Height;
 
             pictureBox2.Image = Image.FromFile("background.png");
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.Location = new Point(0, 0);
+            pictureBox2.Location = new Point(0, 700);
             pictureBox2.Width = Width;
-            pictureBox2.Height = Height / 2;
-
-            pictureBox3.Image = Image.FromFile("background.png");
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.Location = new Point(0, 300);
-            pictureBox3.Width = Width;
-            pictureBox3.Height = Height / 2;
+            pictureBox2.Height = Height;
         }
         private void InitTitle()
         {
@@ -59,52 +54,54 @@ namespace WF_Shooting
         }
         private void InitLabels()
         {
-            label3.Text = "SCORE";
-            label4.Text = "000";
-            label5.Text = "LIFE";
-            label6.Text = "♥♥♥";
+            label3.Text = "PRESS 'S' TO START GAME";
+            label3.ForeColor = backColor;
+            label3.Font = new Font("Myriad Hebrew", 20, FontStyle.Bold);
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+
+            label4.Text = "PRESS 'Q' TO EXIT GAME";
+            label4.ForeColor = backColor;
+            label4.Font = new Font("Myriad Hebrew", 20, FontStyle.Bold);
+            label4.TextAlign = ContentAlignment.MiddleCenter;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            MoveBackGround(10);
+            MoveBackGround(5);
+            BlinkText(5);
         }
-
+        // 화면 이동
         private void MoveBackGround(int speed)
         {
-            if (pictureBox1.Top >= 0)
+            if (pictureBox1.Top >= 700)
             {
-                pictureBox1.Top = -300;
+                pictureBox1.Top = -700;
             }
             else
             {
                 pictureBox1.Top += speed;
             }
 
-            if (pictureBox2.Top >= 300)
+            if (pictureBox2.Top >= 700)
             {
-                pictureBox2.Top = 0;
+                pictureBox2.Top = -700;
             }
             else
             {
                 pictureBox2.Top += speed;
             }
-
-            if (pictureBox3.Top >= 600)
-            {
-                pictureBox3.Top = 300;
-            }
-            else
-            {
-                pictureBox3.Top += speed;
-            }
         }
-        // 종료
-        private void button2_Click(object sender, EventArgs e)
+        private void BlinkText(int speed)
         {
-            Application.Exit();
+            time += speed;
+            if(time >= 80)
+            {
+                label3.Visible = !label3.Visible;
+                label4.Visible = !label4.Visible;
+                time = 0;
+            }
         }
-
+        // 게임시작
         private void StartGame()
         {
             this.Visible = false;
@@ -112,7 +109,7 @@ namespace WF_Shooting
             gameForm.ShowDialog();
             this.Close();
         }
-
+        // 키 입력
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
              switch(e.KeyCode)
@@ -120,6 +117,11 @@ namespace WF_Shooting
                 case Keys.S:
                     {
                         StartGame();
+                        break;
+                    }
+                case Keys.Q:
+                    {
+                        Application.Exit();
                         break;
                     }
             }
