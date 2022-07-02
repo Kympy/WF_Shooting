@@ -15,7 +15,6 @@ namespace WF_Shooting
             InitForm();
             InitBackGround();
             InitTitle();
-            InitButton();
             InitLabels();
 
             timer1.Enabled = true;
@@ -24,43 +23,9 @@ namespace WF_Shooting
         public void InitForm()
         {
             StartPosition = FormStartPosition.CenterScreen;
-            //FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Width = 600;
             Height = 700;
-        }
-        public void InitButton()
-        {
-            // 시작 버튼
-            // 폰트
-            button1.Text = "START";
-            button1.Font = new Font("Myriad Hebrew", 20, FontStyle.Bold);
-            button1.ForeColor = buttonTextColor;
-            // 버튼 스타일
-            button1.FlatStyle = FlatStyle.Popup;
-            button1.BringToFront();
-            // 색상
-            button1.BackColor = buttonBackColor;
-            // 크기 위치
-            button1.Width = 150;
-            button1.Height = 50;
-            button1.Location = new Point(225, 450);
-
-            // 종료 버튼
-            // 폰트
-            button2.Text = "EXIT";
-            button2.Font = new Font("Myriad Hebrew", 20, FontStyle.Bold);
-            button2.ForeColor = buttonTextColor;
-            // 버튼 스타일
-            button2.FlatStyle = FlatStyle.Popup;
-            button2.BringToFront();
-            //QuitButton.FlatAppearance.BorderSize = 0;
-            // 색상
-            button2.BackColor = buttonBackColor;
-            // 크기 위치
-            button2.Width = 150;
-            button2.Height = 50;
-            button2.Location = new Point(225, 550);
         }
         public void InitBackGround()
         {
@@ -140,18 +105,24 @@ namespace WF_Shooting
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            button1.Enabled = false;
-            button2.Enabled = false;
-            button1.Visible = false;
-            button2.Visible = false;
-
-            StartGame();
-        }
         private void StartGame()
         {
+            this.Visible = false;
+            Form2 gameForm = new Form2();
+            gameForm.ShowDialog();
+            this.Close();
+        }
 
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+             switch(e.KeyCode)
+            {
+                case Keys.S:
+                    {
+                        StartGame();
+                        break;
+                    }
+            }
         }
     }
 }
