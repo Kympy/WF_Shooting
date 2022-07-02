@@ -10,8 +10,7 @@ namespace WF_Shooting
     {
         private static Image enemyImg1 = Image.FromFile("enemy01.png");
         private static Image enemyImg2 = Image.FromFile("enemy02.png");
-        public static Point location;
-        public static int speed = 2;
+        public static int speed = 3;
 
         public static Image SpawnRandom()
         {

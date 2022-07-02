@@ -23,6 +23,7 @@ namespace WF_Shooting
         }
         public void InitForm()
         {
+            Name = "Shooting Galaxy ver 1.0.0";
             StartPosition = FormStartPosition.CenterScreen;
             MaximizeBox = false;
             Width = 600;
@@ -107,7 +108,7 @@ namespace WF_Shooting
             this.Visible = false;
             Form2 gameForm = new Form2();
             gameForm.ShowDialog();
-            this.Close();
+            
         }
         // 키 입력
         private void Form1_KeyDown(object sender, KeyEventArgs e)
