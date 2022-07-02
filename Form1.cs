@@ -31,13 +31,13 @@ namespace WF_Shooting
         public void InitBackGround()
         {
             BackColor = backgroundColor;
-            pictureBox1.Image = Image.FromFile("background.png");
+            pictureBox1.Image = Image.FromFile("Stars.png");
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Width = Width;
             pictureBox1.Height = Height;
 
-            pictureBox2.Image = Image.FromFile("background.png");
+            pictureBox2.Image = Image.FromFile("Stars.png");
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.Location = new Point(0, 700);
             pictureBox2.Width = Width;

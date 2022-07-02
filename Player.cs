@@ -16,7 +16,7 @@ namespace WF_Shooting
         private static Image player2;
         private static Image player3;
         private static Image error = Image.FromFile("error.png");
-        public static void InitPlayer()
+        public static void InitPlayerInfo()
         {
             life = 3;
             speed = 1;

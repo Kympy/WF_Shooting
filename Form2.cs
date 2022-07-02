@@ -12,10 +12,12 @@ namespace WF_Shooting
 {
     public partial class Form2 : Form
     {
+        // 조작 변수
         bool isRight = false;
         bool isLeft = false;
         bool isUp = false;
         bool isDown = false;
+        bool isAttack = false;
         public Form2()
         {
             InitializeComponent();
@@ -27,8 +29,13 @@ namespace WF_Shooting
             InitBackGround2();
             timer1.Enabled = true;
             timer1.Interval = 1000 / 90;
+            timer2.Enabled = true;
             timer2.Interval = 1000 / 90;
-            GetPlayer();
+            timer3.Enabled = false;
+            timer3.Interval = 1000 / 90;
+            InitPlayer();
+            InitBullet();
+            ChangeAttackState(false);
         }
         private void InitForm2()
         {
@@ -38,9 +45,9 @@ namespace WF_Shooting
             Height = 700;
             StartPosition = FormStartPosition.CenterScreen;
         }
-        private void GetPlayer()
+        private void InitPlayer()
         {
-            Player.InitPlayer();
+            Player.InitPlayerInfo();
             pictureBox1.Image = Player.GetPlayerImg();
             pictureBox1.Width = 80;
             pictureBox1.Height = 80;
@@ -50,13 +57,13 @@ namespace WF_Shooting
         public void InitBackGround2()
         {
             BackColor = Color.FromArgb(38, 38, 67);
-            pictureBox2.Image = Image.FromFile("background.png");
+            pictureBox2.Image = Image.FromFile("Stars.png");
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Width = Width;
             pictureBox2.Height = Height;
 
-            pictureBox3.Image = Image.FromFile("background.png");
+            pictureBox3.Image = Image.FromFile("Stars.png");
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.Location = new Point(0, 700);
             pictureBox3.Width = Width;
@@ -93,28 +100,29 @@ namespace WF_Shooting
         {
             switch(e.KeyCode)
             {
-                case Keys.Right:
+                case Keys.Right: // 오른쪽
                     {
                         isRight = true;
-                        timer2.Enabled = true;
                         break;
                     }
-                case Keys.Left:
+                case Keys.Left: // 왼쪽
                     {
                         isLeft = true;
-                        timer2.Enabled = true;
                         break;
                     }
-                case Keys.Up:
+                case Keys.Up: // 위
                     {
                         isUp = true;
-                        timer2.Enabled = true;
                         break;
                     }
-                case Keys.Down:
+                case Keys.Down: // 아래
                     {
                         isDown = true;
-                        timer2.Enabled = true;
+                        break;
+                    }
+                case Keys.Space: // 공격
+                    {
+                        isAttack = true;
                         break;
                     }
             }
@@ -142,6 +150,11 @@ namespace WF_Shooting
                 if (pictureBox1.Bottom <= 650)
                     pictureBox1.Location = new Point(pictureBox1.Location.X, pictureBox1.Location.Y + 2);
             }
+            if(isAttack)
+            {
+                timer3.Enabled = true;
+                ChangeAttackState(true);
+            }
         }
         // 키 땔 때 이동제한
         private void Form2_KeyUp(object sender, KeyEventArgs e)
@@ -168,7 +181,69 @@ namespace WF_Shooting
                         isDown = false;
                         break;
                     }
+                case Keys.Space:
+                    {
+                        isAttack = false;
+                        timer3.Enabled = false;
+                        ChangeAttackState(false);
+                        break;
+                    }
             }
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            MoveBullet(20);
+        }
+        private void MoveBullet(int speed)
+        {
+            
+
+            if (pictureBox4.Top <= 0)
+            {
+                pictureBox4.Top = pictureBox1.Location.Y;
+                pictureBox4.Left = pictureBox1.Left + 15;
+            }
+            else
+            {
+                pictureBox4.Top -= speed;
+            }
+
+            if(pictureBox5.Top <= 0)
+            {
+                pictureBox5.Top = pictureBox1.Location.Y;
+                pictureBox5.Left = pictureBox1.Left + 45;
+            }
+            else
+            {
+                pictureBox5.Top -= speed;
+            }
+        }
+        private void InitBullet()
+        {
+            pictureBox4.Image = Bullet.playerBullet;
+            pictureBox4.Width = Bullet.playerBullet.Width;
+            pictureBox4.Height = Bullet.playerBullet.Height;
+            pictureBox4.BringToFront();
+            pictureBox4.Visible = false;
+            pictureBox4.Enabled = false;
+
+            pictureBox5.Image = Bullet.playerBullet;
+            pictureBox5.Width = Bullet.playerBullet.Width;
+            pictureBox5.Height = Bullet.playerBullet.Height;
+            pictureBox5.BringToFront();
+            pictureBox5.Visible = false;
+            pictureBox5.Enabled = false;
+
+            pictureBox4.Location = new Point(pictureBox1.Location.X + 15, pictureBox1.Location.Y);
+            pictureBox5.Location = new Point(pictureBox1.Location.X + 45, pictureBox1.Location.Y);
+        }
+        private void ChangeAttackState(bool isTrue)
+        {
+            pictureBox4.Enabled = isTrue;
+            pictureBox4.Visible = isTrue;
+            pictureBox5.Enabled = isTrue;
+            pictureBox5.Visible = isTrue;
         }
     }
 }
