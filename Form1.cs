@@ -45,12 +45,12 @@ namespace WF_Shooting
         }
         private void InitTitle()
         {
-            label1.Text = "SHOOTING";
-            label2.Text = "GALAXY";
-            label1.ForeColor = Color.LawnGreen;
-            label2.ForeColor = Color.Aqua;
-            label1.Font = new Font("Myriad Hebrew", 50, FontStyle.Bold);
-            label2.Font = new Font("Myriad Hebrew", 45, FontStyle.Bold);
+            Image title = Image.FromFile("title.png");
+            pictureBox3.Image = title;
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.Width = title.Width;
+            pictureBox3.Height = title.Height;
+          
         }
         private void InitLabels()
         {
