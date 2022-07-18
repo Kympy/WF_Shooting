@@ -16,16 +16,15 @@ namespace WF_Shooting
         // ======================= 맞은 물체 와 때린 물체의 충돌체크 ======================================= //
         public bool CheckCollision(PictureBox mainObject, PictureBox hitObject)
         {
-            if (mainObject.Top + 3 <= hitObject.Bottom && mainObject.Bottom - 3 >= hitObject.Top) // Top 과 Left 이용해서 좌표가 범위에 속하면 충돌
+            if (mainObject.Top <= hitObject.Bottom && mainObject.Bottom >= hitObject.Top) // Top 과 Left 이용해서 좌표가 범위에 속하면 충돌
             {
-                if (mainObject.Left + 8 <= hitObject.Right && mainObject.Right - 8 >= hitObject.Left)
+                if (mainObject.Left <= hitObject.Left && mainObject.Right  >= hitObject.Right)
                 {
                     return true; // 충돌했다
                 }
                 else return false; // 충돌 안했다
             }
             else return false;  // 충돌 안했다
-
         }
     }
 }
