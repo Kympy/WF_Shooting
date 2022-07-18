@@ -18,7 +18,7 @@ namespace WF_Shooting
         {
             if (mainObject.Top + 3 <= hitObject.Bottom && mainObject.Bottom - 3 >= hitObject.Top) // Top 과 Left 이용해서 좌표가 범위에 속하면 충돌
             {
-                if (mainObject.Left + 5 <= hitObject.Right && mainObject.Right - 5>= hitObject.Left)
+                if (mainObject.Left + 8 <= hitObject.Right && mainObject.Right - 8 >= hitObject.Left)
                 {
                     return true; // 충돌했다
                 }

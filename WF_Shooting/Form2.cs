@@ -450,7 +450,6 @@ namespace WF_Shooting
             {
                 pictureBox2.Top += speed;
             }
-
             if (pictureBox3.Top >= 700)
             {
                 pictureBox3.Top = -700;

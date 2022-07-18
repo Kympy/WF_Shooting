@@ -14,10 +14,10 @@ namespace WF_Shooting
         public static void GetScore() // 점수 획득
         {
             score += 100;
-            if (score % 1000 == 0 && Enemy.speed < 12 && Form2.gameSpeed < 13)
+            if (score % 1000 == 0 && GameManager.Instance.enemyClass.enemySpeed < 12 && GameManager.Instance.gameInfo.gameSpeed < 13)
             {
-                Enemy.speed += 3; // 1000 점 마다 난이도 상승
-                Form2.gameSpeed += 2; // 최대 3000점까지 상승
+                GameManager.Instance.enemyClass.enemySpeed += 3; // 1000 점 마다 난이도 상승
+                GameManager.Instance.gameInfo.gameSpeed += 2; // 최대 3000점까지 상승
             }
         }
         public static void DecreaseLife() // 목숨 감소
@@ -28,8 +28,8 @@ namespace WF_Shooting
         {
             score = 0;
             life = 3;
-            Enemy.speed = 3;
-            Form2.gameSpeed = 5;
+            GameManager.Instance.enemyClass.enemySpeed = 3;
+            GameManager.Instance.gameInfo.gameSpeed = 5;
         }
     }
 }
