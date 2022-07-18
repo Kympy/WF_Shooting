@@ -13,13 +13,11 @@ using System.Windows.Forms;
     picturebox 2,3 = background;
     picturebox 4, 5 = playerbullet;
     picturebox 6,7,8,9 = enemy;
-    10 11 >> Boss;
  */
 namespace WF_Shooting
 {
     public partial class Form2 : Form
     {
-        public static bool isBoss = false;
         public static int gameSpeed = 5; // 게임 속도
         // 조작 변수
         bool isRight = false;
@@ -27,8 +25,6 @@ namespace WF_Shooting
         bool isUp = false;
         bool isDown = false;
         bool isAttack = false;
-        bool isDead = true; // 보스 사망여부
-        int bossSpeed = 4;
         public Form2()
         {
             InitializeComponent();
@@ -91,13 +87,6 @@ namespace WF_Shooting
             label7.Font = new Font("맑은 고딕", 10, FontStyle.Bold);
             label7.ForeColor = Color.Gold;
             label7.Location = new Point(70, 640);
-
-            pictureBox6.Top = 800;
-            pictureBox7.Top = 800;
-            pictureBox8.Top = 800;
-            pictureBox9.Top = 800;
-            pictureBox10.Top = 800;
-            pictureBox11.Top = 800;
         }
         private void InitPlayer() // 플레이어 초기화
         {
@@ -108,30 +97,12 @@ namespace WF_Shooting
             pictureBox1.BringToFront();
             pictureBox1.Location = Player.GetLocation();
         }
-        public void SpawnBoss()
-        {
-            pictureBox10.Image = Enemy.GetBossImg();
-            pictureBox10.Width = pictureBox10.Image.Width;
-            pictureBox10.Height = pictureBox10.Image.Height;
-            pictureBox10.BringToFront();
-            pictureBox10.Left = 600 / 2 - pictureBox10.Width / 2;
-            pictureBox10.Top = -400;
-            isDead = false;
-
-            pictureBox11.Image = Image.FromFile("fire.png");
-            pictureBox11.Width = pictureBox11.Image.Width * 2;
-            pictureBox11.Height = pictureBox11.Image.Height * 2;
-            pictureBox11.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox11.BringToFront();
-            pictureBox11.Left = pictureBox10.Left + pictureBox10.Width / 2;
-            pictureBox11.Top = pictureBox10.Top + 40;
-        }
         private void RandomInitEnemy() // 적을 랜덤한 위치에 주기적으로 생성
         {
             Random rnd = new Random();
             int randomPosX;
             int randomPosY;
-
+            
             pictureBox6.Image = Enemy.SpawnRandom();
             pictureBox7.Image = Enemy.SpawnRandom();
             pictureBox8.Image = Enemy.SpawnRandom();
@@ -172,91 +143,37 @@ namespace WF_Shooting
                 pictureBox9.Top = randomPosY;
             }
             else pictureBox9.Top = 750;
+
         }
-        private void EnemyAI(int speed, bool isBoss) // 적의 이동
+        private void EnemyAI(int speed) // 적의 이동
         {
-            if(isBoss) // 보스전 중이라면
+            if(pictureBox6.Top >= 750)
             {
-                if(isDead) SpawnBoss();
-                if (pictureBox10.Top >= 50) // 보스 등장
-                {
-                    pictureBox10.Top = 50;
-                }
-                else pictureBox10.Top += 3;
-
-                pictureBox10.Left += bossSpeed;
-
-                if(pictureBox10.Left <= 70) // 보스 좌우 이동
-                {
-                    bossSpeed = -bossSpeed;
-                }
-                else if(pictureBox10.Left >= 450)
-                {
-                    bossSpeed = -bossSpeed;
-                }
-
-                if (pictureBox11.Top >= 750) // 보스 총 이동
-                {
-                    pictureBox11.Top = pictureBox10.Top + 40;
-                    pictureBox11.Left = pictureBox10.Left + pictureBox10.Width / 2;
-                }
-                else pictureBox11.Top += 6; // 총 속도
-
-                if (pictureBox6.Top >= 750)
-                {
-                    pictureBox6.Top = 750;
-                }
-                else pictureBox6.Top += speed;
-
-                if (pictureBox7.Top >= 750)
-                {
-                    pictureBox7.Top = 750;
-                }
-                else pictureBox7.Top += speed;
-
-                if (pictureBox8.Top >= 750)
-                {
-                    pictureBox8.Top = 750;
-                }
-                else pictureBox8.Top += speed;
-
-                if (pictureBox9.Top >= 750)
-                {
-                    pictureBox9.Top = 750;
-                }
-                else pictureBox9.Top += speed;
+                pictureBox6.Top = 750;
             }
-            else
+            else pictureBox6.Top += speed;
+
+            if (pictureBox7.Top >= 750)
             {
-                if (pictureBox6.Top >= 750)
-                {
-                    pictureBox6.Top = 750;
-                }
-                else pictureBox6.Top += speed;
+                pictureBox7.Top = 750;
+            }
+            else pictureBox7.Top += speed;
 
-                if (pictureBox7.Top >= 750)
-                {
-                    pictureBox7.Top = 750;
-                }
-                else pictureBox7.Top += speed;
+            if (pictureBox8.Top >= 750)
+            {
+                pictureBox8.Top = 750;
+            }
+            else pictureBox8.Top += speed;
 
-                if (pictureBox8.Top >= 750)
-                {
-                    pictureBox8.Top = 750;
-                }
-                else pictureBox8.Top += speed;
-
-                if (pictureBox9.Top >= 750)
-                {
-                    pictureBox9.Top = 750;
-                }
-                else pictureBox9.Top += speed;
-                // 보스전이 아니고 적이 다 죽으면 재 소환
-                if (pictureBox6.Top >= 750 && pictureBox7.Top >= 750 && pictureBox8.Top >= 750 && pictureBox9.Top >= 750
-                    && isBoss == false)
-                {
-                    RandomInitEnemy();
-                }
+            if (pictureBox9.Top >= 750)
+            {
+                pictureBox9.Top = 750;
+            }
+            else pictureBox9.Top += speed;
+            // 적이 다 죽으면 재 소환
+            if (pictureBox6.Top >= 750 && pictureBox7.Top >= 750 && pictureBox8.Top >= 750 && pictureBox9.Top >=750)
+            {
+                RandomInitEnemy();
             }
         }
         public void InitBackGround2()
@@ -286,16 +203,9 @@ namespace WF_Shooting
         // 배경 타이머 & 점수 목숨 갱신
         private void timer1_Tick(object sender, EventArgs e)
         {
-            MoveBackGround(gameSpeed); // 배경 움직이기
-            ScoreLife.score += 1; // 1 점 씩 시간당 증가
+            MoveBackGround(gameSpeed);
             label2.Text = Convert.ToString(ScoreLife.score); // 점수 갱신
-            ScoreLife.CheckStage();
-            if (Enemy.speed < 20 && gameSpeed < 20)
-            {
-                Enemy.speed = ScoreLife.stage + 3; // 1000 점 마다 난이도 상승
-                gameSpeed = ScoreLife.stage + 5; // 최대 3000점까지 상승
-            }
-            switch (ScoreLife.life) // 목숨 갱신
+            switch(ScoreLife.life) // 목숨 갱신
             {
                 case 1: { label4.Text = "♥"; break; }
                 case 2: { label4.Text = "♥♥"; break; }
@@ -317,22 +227,22 @@ namespace WF_Shooting
             if (isRight)
             {
                 if (pictureBox1.Right < 600)
-                    pictureBox1.Location = new Point(pictureBox1.Location.X + 3, pictureBox1.Location.Y);
+                    pictureBox1.Location = new Point(pictureBox1.Location.X + 2, pictureBox1.Location.Y);
             }
             if (isLeft)
             {
                 if (pictureBox1.Left > 0)
-                    pictureBox1.Location = new Point(pictureBox1.Location.X - 3, pictureBox1.Location.Y);
+                    pictureBox1.Location = new Point(pictureBox1.Location.X - 2, pictureBox1.Location.Y);
             }
             if (isUp)
             {
                 if (pictureBox1.Top >= 300)
-                    pictureBox1.Location = new Point(pictureBox1.Location.X, pictureBox1.Location.Y - 3);
+                    pictureBox1.Location = new Point(pictureBox1.Location.X, pictureBox1.Location.Y - 2);
             }
             if (isDown)
             {
                 if (pictureBox1.Bottom <= 650)
-                    pictureBox1.Location = new Point(pictureBox1.Location.X, pictureBox1.Location.Y + 3);
+                    pictureBox1.Location = new Point(pictureBox1.Location.X, pictureBox1.Location.Y + 2);
             }
             if (isAttack)
             {
@@ -341,19 +251,22 @@ namespace WF_Shooting
         }
         private void timer3_Tick(object sender, EventArgs e) // 적 움직임 소환, 충돌체크 타이머
         {
-            if (isAttack == false) // 공격 중이 아니면
+            if (isAttack == false)
             {
-                BulletReset();
+                pictureBox4.Top = pictureBox1.Location.Y;
+                pictureBox4.Left = pictureBox1.Left + 15;
+                pictureBox5.Top = pictureBox1.Location.Y;
+                pictureBox5.Left = pictureBox1.Left + 45;
             }
             else
             {
                 MoveBullet(20);
             }
-            EnemyAI(Enemy.speed, isBoss); // 적 움직임
-            CheckBulletEnemy(); // 총알 충돌 체크
+            EnemyAI(Enemy.speed); // 적 움직임
             CheckPlayerEnemy(); // 플레이어 충돌체크
+            CheckBulletEnemy(); // 총알 충돌 체크
         }
-        private void CheckPlayerEnemy() // 플레이어와 적 충돌 체크
+        private void CheckPlayerEnemy() // 플레이어와 적 체크
         {
             if (Bullet.CheckCollision(pictureBox1, pictureBox6))
             {
@@ -375,55 +288,28 @@ namespace WF_Shooting
                 pictureBox9.Top = 750;
                 if (ScoreLife.life > 0) ScoreLife.DecreaseLife();
             }
-            if (Bullet.CheckCollision(pictureBox1, pictureBox11))
-            {
-                pictureBox11.Top = pictureBox10.Top + 40;
-                if (ScoreLife.life > 0) ScoreLife.DecreaseLife(); ;
-            }
         }
-        private void CheckBulletEnemy() // 총알과 적 충돌 체크
+        private void CheckBulletEnemy() // 총알과 적 체크
         {
             if ((Bullet.CheckCollision(pictureBox4, pictureBox6) || Bullet.CheckCollision(pictureBox5, pictureBox6)))
             {
                 pictureBox6.Top = 750;
-                BulletReset();
                 ScoreLife.GetScore();
             }
             if ((Bullet.CheckCollision(pictureBox4, pictureBox7) || Bullet.CheckCollision(pictureBox5, pictureBox7)))
             {
                 pictureBox7.Top = 750;
-                BulletReset();
                 ScoreLife.GetScore();
             }
             if ((Bullet.CheckCollision(pictureBox4, pictureBox8) || Bullet.CheckCollision(pictureBox5, pictureBox8)))
             {
                 pictureBox8.Top = 750;
-                BulletReset();
                 ScoreLife.GetScore();
             }
             if ((Bullet.CheckCollision(pictureBox4, pictureBox9) || Bullet.CheckCollision(pictureBox5, pictureBox9)))
             {
                 pictureBox9.Top = 750;
-                BulletReset();
                 ScoreLife.GetScore();
-            }
-            if ((Bullet.CheckCollision(pictureBox4, pictureBox10) || Bullet.CheckCollision(pictureBox5, pictureBox10)))
-            { // 보스와 체크
-                BulletReset();
-                Enemy.bossHP -= 4;
-                if(Enemy.bossHP <= 0)
-                {
-                    isBoss = false;
-                    isDead = true;
-                    if(isDead == true)
-                    {   
-                        // 점수 미달인데 보스 사망 시 해당점수까지 점프
-                        if (ScoreLife.score < 2000) ScoreLife.score = 2000;
-                    }
-                    pictureBox10.Top = 800;
-                    pictureBox11.Top = pictureBox10.Top + 40;
-                    Enemy.bossHP = 800;
-                }
             }
         }
         // 배경 움직이기
@@ -546,13 +432,6 @@ namespace WF_Shooting
                 pictureBox5.Top -= speed;
             }
         }
-        private void BulletReset()
-        {
-            pictureBox4.Top = pictureBox1.Location.Y; // 총알 위치 초기화
-            pictureBox4.Left = pictureBox1.Left + 15;
-            pictureBox5.Top = pictureBox1.Location.Y;
-            pictureBox5.Left = pictureBox1.Left + 45;
-        }
         private void InitBullet() // 총알 초기화
         {
             pictureBox4.Image = Bullet.playerBullet;
@@ -572,7 +451,7 @@ namespace WF_Shooting
             pictureBox4.Location = new Point(pictureBox1.Location.X + 15, pictureBox1.Location.Y);
             pictureBox5.Location = new Point(pictureBox1.Location.X + 45, pictureBox1.Location.Y);
         }
-        private void ChangeAttackState(bool isTrue) // 공격 상태 변경 시 총알의 활성여부 변경
+        private void ChangeAttackState(bool isTrue)
         {
             pictureBox4.Enabled = isTrue;
             pictureBox4.Visible = isTrue;
@@ -591,7 +470,7 @@ namespace WF_Shooting
             }
             return randomPosX;
         }
-        private void EndGame() // 게임 종료시 화면 출력
+        private void EndGame()
         {
             label5.Visible = true;
             label5.BringToFront();

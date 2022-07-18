@@ -10,32 +10,15 @@ namespace WF_Shooting
     {
         public static int score = 0;
         public static int life = 3;
-        public static int stage = 1;
+
         public static void GetScore() // 점수 획득
         {
             score += 100;
-        }
-        public static void CheckStage()
-        {
-            if (score >= 0 && score < 1000)
+            if (score % 1000 == 0 && Enemy.speed < 12 && Form2.gameSpeed < 13)
             {
-                stage = 1;
+                Enemy.speed += 3; // 1000 점 마다 난이도 상승
+                Form2.gameSpeed += 2; // 최대 3000점까지 상승
             }
-            else if (score >= 1000 && score < 2000)
-            {
-                stage = 2;
-                Form2.isBoss = true;
-            }
-            else if (score >= 2000 && score < 3000)
-            {
-                stage = 3;
-            }
-            else if (score >= 4000 && score < 6000)
-            {
-                stage = 4;
-                Form2.isBoss = true;
-            }
-            else stage = 5;
         }
         public static void DecreaseLife() // 목숨 감소
         {
