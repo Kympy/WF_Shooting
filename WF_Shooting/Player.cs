@@ -25,7 +25,6 @@ namespace WF_Shooting
             speed = 3;
             location = new Point(230, 500);
             playerImg = ResizeImage(Image.FromFile("player.png"));
-
         }
         // =============================== 이미지 사이즈 조절 함수 =================================== //
         private Image ResizeImage(Image original) // 플레이어 이미지가 너무 커서 5분의 1로 줄이는 함수

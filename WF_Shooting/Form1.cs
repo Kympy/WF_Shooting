@@ -80,16 +80,16 @@ namespace WF_Shooting
         // ================================= 배경 이동 함수 ================================= //
         private void MoveBackGround(int speed)
         {
-            if (pictureBox1.Top >= 700)
+            if (pictureBox1.Top >= 700) // 첫번째 이미지가 700을 넘어가면
             {
-                pictureBox1.Top = -700;
+                pictureBox1.Top = -700; // -700 에 위치
             }
             else
             {
                 pictureBox1.Top += speed;
             }
 
-            if (pictureBox2.Top >= 700)
+            if (pictureBox2.Top >= 700) // 두번째 이미지
             {
                 pictureBox2.Top = -700;
             }
@@ -104,8 +104,8 @@ namespace WF_Shooting
             time += speed;
             if(time >= 80)
             {
-                label3.Visible = !label3.Visible;
-                label4.Visible = !label4.Visible;
+                label3.Visible = !label3.Visible; // Press S
+                label4.Visible = !label4.Visible; // Press Q
                 time = 0;
             }
         }
@@ -113,8 +113,8 @@ namespace WF_Shooting
         private void StartGame()
         {
             this.Visible = false;
-            Form2 gameForm = new Form2();
-            gameForm.ShowDialog();
+            Form2 gameForm = new Form2(); // 게임 폼
+            gameForm.ShowDialog(); // ShowDialog로 호출
             this.Close();
         }
         // ================================= 게임 시작을 위한 키 입력 처리 ================================= //
