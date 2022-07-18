@@ -17,3 +17,10 @@ C:\Users\gftr9\Desktop\WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\refint
 C:\Users\gftr9\Desktop\WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.pdb
 C:\Users\gftr9\Desktop\WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.genruntimeconfig.cache
 C:\Users\gftr9\Desktop\WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\ref\WF_Shooting.dll
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.Form1.resources
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.Form2.resources
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.csproj.GenerateResource.cache
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.dll
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\refint\WF_Shooting.dll
+C:\Users\User\Desktop\KYM\05_WF_Shooting\WF_Shooting\obj\Release\net6.0-windows\WF_Shooting.pdb
