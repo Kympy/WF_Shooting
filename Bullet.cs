@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace WF_Shooting
 {
-    internal class Bullet
+    public class Bullet
     {
-        public static Image playerBullet = Image.FromFile("bullet.png");
-        // 맞은 물체 와 때린 물체의 충돌체크
-        public static bool CheckCollision(PictureBox mainObject, PictureBox hitObject)
+        // ================================ 사용할 총알 이미지 ======================================= //
+
+        public Image playerBullet = Image.FromFile("bullet.png"); // 플레이어 총알
+        public Image bossBullet = Image.FromFile("fire.png"); // 보스 총알
+
+        // ======================= 맞은 물체 와 때린 물체의 충돌체크 ======================================= //
+        public bool CheckCollision(PictureBox mainObject, PictureBox hitObject)
         {
-            if (mainObject.Top + 3 <= hitObject.Bottom && mainObject.Bottom - 3 >= hitObject.Top)
+            if (mainObject.Top + 3 <= hitObject.Bottom && mainObject.Bottom - 3 >= hitObject.Top) // Top 과 Left 이용해서 좌표가 범위에 속하면 충돌
             {
-                if (mainObject.Left + 8 <= hitObject.Right && mainObject.Right - 8>= hitObject.Left)
+                if (mainObject.Left + 5 <= hitObject.Right && mainObject.Right - 5>= hitObject.Left)
                 {
-                    return true;
+                    return true; // 충돌했다
                 }
-                else return false;
+                else return false; // 충돌 안했다
             }
-            else return false;
+            else return false;  // 충돌 안했다
 
         }
     }

@@ -6,84 +6,56 @@ using System.Threading.Tasks;
 
 namespace WF_Shooting
 {
-    internal static class Player
+    public class Player
     {
-        private static int life;
-        private static int speed;
-        private static int level;
-        private static Point location;
-        private static Image player1;
-        private static Image player2;
-        private static Image player3;
-        private static Image error = Image.FromFile("error.png");
-        public static void InitPlayerInfo()
-        {
-            life = 3;
-            speed = 1;
-            level = 1;
-            location = new Point(230, 500);
+        // =============================== 플레이어 변수 =================================== //
 
-            player1 = ResizeImage(Image.FromFile("player01.png"));
-            player2 = ResizeImage(Image.FromFile("player02.png"));
-            player3 = ResizeImage(Image.FromFile("player03.png"));
+        private int speed; // 속도
+        private Point location; // 위치
+        private Image playerImg; // 플레이어 이미지
+
+        // =============================== 키 입력 이동 조작 변수 =================================== //
+        public bool isRight = false;
+        public bool isLeft = false;
+        public bool isUp = false;
+        public bool isDown = false;
+        public bool isAttack = false;
+        public Player() // 생성자
+        {
+            speed = 3;
+            location = new Point(230, 500);
+            playerImg = ResizeImage(Image.FromFile("player.png"));
+
         }
-        private static Image ResizeImage(Image original)
+        // =============================== 이미지 사이즈 조절 함수 =================================== //
+        private Image ResizeImage(Image original) // 플레이어 이미지가 너무 커서 5분의 1로 줄이는 함수
         {
             int width = original.Width / 5;
             int height = original.Height / 5;
             Size resize = new Size(width, height);
+            try
+            {
+                Bitmap resizedImg = new Bitmap(original, resize);
+                return resizedImg;
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new FileNotFoundException("File Load Error", ex);
+            }           
 
-            Bitmap resizedImg = new Bitmap(original, resize);
-            return resizedImg;
         }
-        public static Point GetLocation()
+        // ================================= 위치, 속도, 이미지 Get함수 ======================================= //
+        public Point GetLocation() // 플레이어 위치를 가져오기 >> 쓴적은 없음
         {
             return location;
         }
-        public static int GetLife()
-        {
-            return life;
-        }
-        public static int GetSpeed()
+        public int GetSpeed() // 현재 속도
         {
             return speed;
         }
-        public static int GetLevel()
+        public Image GetPlayerImg() // 플레이어 이미지 가져오기
         {
-            return level;
-        }
-        public static void ChangeLevel(int newlevel)
-        {
-            level = newlevel;
-        }
-        public static void ChangeLife(int minus)
-        {
-            life -= minus;
-        }
-        public static void ChangeSpeed(int newSpeed)
-        {
-            speed = newSpeed;
-        }
-        public static Image GetPlayerImg()
-        {
-            if (level == 1)
-            {
-                return player1;
-            }
-            else if (level == 2)
-            {
-                return player2;
-            }
-            else if (level == 3)
-            {
-                return player3;
-            }
-            else return error;
-        }
-        public static Point MoveRight()
-        {
-            Point right = new Point(2, 0);
-            return right;
+            return playerImg;
         }
     }
 }
